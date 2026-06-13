@@ -219,6 +219,64 @@ footer .badge{display:inline-block;background:var(--card-sub);border:1px solid v
   font-size:19px;transition:.18s;backdrop-filter:blur(2px)}
 .icon-btn:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
 .icon-btn:active{transform:translateY(0)}
+.theory-btn{
+  height:42px; padding:0 16px; border-radius:13px;
+  border:1px solid rgba(255,255,255,.42); background:rgba(255,255,255,.20);
+  color:#fff; font-weight:800; font-size:14px; cursor:pointer;
+  display:inline-flex; align-items:center; gap:6px; transition:.18s; backdrop-filter:blur(2px);
+  white-space:nowrap;
+}
+.theory-btn:hover{background:rgba(255,255,255,.32);transform:translateY(-1px)}
+.theory-btn:active{transform:translateY(0)}
+.theory-btn .tb-short{display:none}
+
+/* ---------- Theory modal ---------- */
+body.modal-open{overflow:hidden}
+.modal-overlay{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(11,40,66,.55); backdrop-filter:blur(3px);
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+.modal-overlay.open{display:flex; animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{
+  width:min(1100px,100%); max-height:90vh; display:flex; flex-direction:column;
+  background:var(--bg1); border:1px solid var(--line); border-radius:20px;
+  box-shadow:0 24px 60px rgba(0,0,0,.35); overflow:hidden;
+}
+.modal-head{
+  display:flex; align-items:center; gap:12px; padding:16px 20px;
+  background:linear-gradient(135deg,var(--blue) 0%, var(--blue-d) 100%); color:#fff;
+}
+.modal-head h2{margin:0; font-size:18px; font-weight:800; flex:1}
+.modal-close{
+  width:38px; height:38px; border-radius:11px; border:1px solid rgba(255,255,255,.4);
+  background:rgba(255,255,255,.18); color:#fff; font-size:18px; cursor:pointer;
+  display:grid; place-items:center; transition:.15s; flex:none;
+}
+.modal-close:hover{background:rgba(255,255,255,.3)}
+.modal-body{padding:18px 20px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch}
+
+/* ---------- Experiment mode banner ---------- */
+.mode-banner{
+  display:flex; align-items:center; gap:14px; margin:16px 0;
+  padding:14px 18px; border-radius:16px;
+  background:linear-gradient(135deg, var(--blue-l), var(--card));
+  border:1px solid var(--line); border-left:6px solid var(--blue);
+  box-shadow:var(--sh);
+}
+.mode-banner.refract{
+  background:linear-gradient(135deg, var(--pink-l), var(--card));
+  border-left-color:var(--pink-d);
+}
+.mode-banner .mb-ic{
+  font-size:26px; width:48px; height:48px; flex:none; border-radius:14px;
+  display:grid; place-items:center; background:var(--card); border:1px solid var(--line);
+}
+.mode-banner .mb-txt{display:flex; flex-direction:column; gap:2px; min-width:0}
+.mode-banner .mb-txt b{font-size:16px; color:var(--blue-d)}
+.mode-banner.refract .mb-txt b{color:var(--pink-d)}
+.mode-banner .mb-txt span{font-size:13px; color:var(--muted)}
 
 /* switch */
 .ctl-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -263,6 +321,406 @@ footer .badge{display:inline-block;background:var(--card-sub);border:1px solid v
 .refract-only{display:none}
 body.mode-refract .refract-only{display:block}
 body.mode-refract .reflect-only{display:none}
+
+/* ===================== 송쌤과학 확장 CSS ===================== */
+/* main page nav */
+.pagenav{
+  display:flex; gap:6px; flex-wrap:wrap; margin:16px 0 6px;
+  background:var(--card); border:1px solid var(--line);
+  border-radius:14px; padding:6px;
+}
+.pagenav .pbtn{
+  flex:1 1 0; min-width:120px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:11px 12px; border-radius:10px; cursor:pointer;
+  font-weight:700; font-size:14px; color:var(--muted);
+  background:transparent; border:1px solid transparent; user-select:none;
+  white-space:nowrap;
+}
+.pagenav .pbtn .ic{font-size:18px}
+.pagenav .pbtn:hover{background:var(--row-hover); color:var(--ink)}
+.pagenav .pbtn.on{
+  background:linear-gradient(135deg,var(--blue) 0%, var(--blue-d) 100%);
+  color:#fff; border-color:var(--blue-d);
+  box-shadow:0 4px 12px rgba(15,111,184,.20);
+}
+.pagenav .pbtn.on .num{
+  background:rgba(255,255,255,.25); color:#fff;
+}
+.pagenav .num{
+  display:inline-block; min-width:18px; text-align:center;
+  background:var(--blue-l); color:var(--blue-d);
+  font-size:11.5px; font-weight:700;
+  padding:1px 6px; border-radius:999px;
+}
+
+/* page system */
+.page{display:none}
+.page.page-on{display:block}
+
+/* ---------- Global student bar (메뉴와 별개) ---------- */
+.stu-bar{
+  position:sticky; top:8px; z-index:50;
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  margin:8px 0 4px; padding:9px 14px;
+  background:var(--card); border:1px solid var(--line);
+  border-left:5px solid var(--pink);
+  border-radius:14px; box-shadow:var(--sh);
+  backdrop-filter:saturate(1.2) blur(2px);
+}
+.stu-bar .stu-ic{font-size:18px; line-height:1}
+.stu-bar .stu-field{display:flex; align-items:center; gap:6px}
+.stu-bar .stu-field label{
+  font-size:13px; font-weight:800; color:var(--blue-d); white-space:nowrap;
+}
+.stu-bar .stu-field input{
+  width:120px; padding:7px 10px; font-size:14px; font-weight:600;
+  color:var(--ink); background:var(--bg1);
+  border:1.5px solid var(--line); border-radius:9px; outline:none;
+}
+.stu-bar .stu-field input:focus{border-color:var(--blue); background:var(--card)}
+.stu-bar .stu-status{
+  margin-left:auto; font-size:12.5px; font-weight:800;
+  padding:4px 11px; border-radius:999px;
+  background:var(--pink-l); color:var(--pink-d); white-space:nowrap;
+}
+.stu-bar .stu-status.ok{background:var(--blue-l); color:var(--blue-d)}
+@media (max-width:560px){
+  .stu-bar{gap:8px; padding:8px 10px}
+  .stu-bar .stu-field{flex:1 1 100%}
+  .stu-bar .stu-field input{flex:1; width:auto}
+  .stu-bar .stu-status{margin-left:0; flex:1 1 100%; text-align:center}
+}
+
+/* theory page */
+.theory-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.theory-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+  padding:18px 20px; box-shadow:var(--sh);
+}
+.theory-card h3{
+  margin:0 0 12px; font-size:17px; color:var(--blue-d);
+  display:flex; align-items:center; gap:8px;
+}
+.theory-card h3 .badge-num{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border-radius:8px;
+  background:var(--blue); color:#fff; font-size:13px; font-weight:800;
+}
+.theory-card p{margin:6px 0; line-height:1.65; font-size:14.5px; color:var(--ink)}
+.theory-card ul{margin:6px 0 10px 18px; padding:0; line-height:1.7; font-size:14px}
+.theory-card li{margin:3px 0}
+.theory-card .formula{
+  background:var(--bench); border:1px dashed var(--blue);
+  border-radius:10px; padding:10px 14px; margin:10px 0;
+  font-size:15px; text-align:center; color:var(--blue-d); font-weight:700;
+}
+.theory-card .key{
+  display:inline-block; background:var(--pink-l); color:var(--pink-d);
+  padding:1px 8px; border-radius:6px; font-weight:700; font-size:13px;
+}
+.theory-diagram{
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--card) 0%, var(--bench) 70%);
+  border:1px solid var(--line); border-radius:14px; padding:12px 10px;
+  display:flex; justify-content:center; align-items:center;
+  min-height:180px; margin:8px 0 12px;
+}
+.theory-diagram svg{max-width:100%; height:auto; display:block}
+/* theme-aware diagram primitives */
+.dg-surface{stroke:var(--blue); }
+.dg-normal{stroke:var(--muted); stroke-dasharray:5 5; stroke-width:1.6;}
+.dg-inc{stroke:var(--red); stroke-width:3.2; stroke-linecap:round;}
+.dg-ref{stroke:var(--laserblue); stroke-width:3.2; stroke-linecap:round;}
+.dg-arc{stroke:var(--muted); stroke-width:1.4; fill:none;}
+.dg-lbl{fill:var(--muted); font-size:11px; font-weight:600;}
+.dg-lbl-inc{fill:var(--red); font-size:11px; font-weight:800;}
+.dg-lbl-ref{fill:var(--laserblue); font-size:11px; font-weight:800;}
+.dg-lbl-blue{fill:var(--blue-d); font-size:10.5px; font-weight:700;}
+.dg-ang{fill:var(--ink); font-size:11px; font-weight:800;}
+.dg-mini-ray{stroke:var(--red); stroke-width:3; stroke-linecap:round;}
+.dg-refr{stroke:var(--green2); stroke-width:3.2; stroke-linecap:round; fill:none;}
+.dg-lbl-refr{fill:var(--green2); font-size:11px; font-weight:800;}
+.dg-med{fill:var(--blue); opacity:0.12;}
+.dg-mirror{fill:var(--blue);}
+.dg-cont{stroke:var(--muted); stroke-width:1.4; stroke-dasharray:3 4; opacity:0.7;}
+.dg-pt{fill:var(--ink);}
+.dg-hatch{stroke:var(--blue-d); stroke-width:1; opacity:.45;}
+.mk-red{fill:var(--red);}
+.mk-blue{fill:var(--laserblue);}
+.mk-green{fill:var(--green2);}
+.theory-table{
+  width:100%; border-collapse:collapse; font-size:13.5px; margin-top:8px;
+}
+.theory-table th, .theory-table td{
+  border:1px solid var(--line); padding:7px 10px; text-align:left;
+}
+.theory-table th{background:var(--bench); color:var(--blue-d)}
+.theory-table td:last-child{text-align:right; font-weight:700; color:var(--blue-d)}
+.nbars{margin-top:12px}
+.nbar-row{display:flex; align-items:center; gap:8px; margin:7px 0; font-size:12.5px}
+.nbar-name{flex:0 0 84px; color:var(--ink); font-weight:600}
+.nbar-track{flex:1; height:15px; background:var(--track); border-radius:8px; overflow:hidden}
+.nbar-fill{height:100%; border-radius:8px; background:linear-gradient(90deg,var(--blue),var(--blue-d));
+  display:flex; align-items:center; justify-content:flex-end;}
+.nbar-val{flex:0 0 40px; text-align:right; font-weight:800; color:var(--blue-d)}
+
+/* quiz game page */
+.qg-wrap{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); padding:20px;
+}
+.qg-head{
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+  padding-bottom:12px; border-bottom:1px solid var(--line); margin-bottom:14px;
+}
+.qg-head h2{margin:0; font-size:20px; color:var(--blue-d)}
+.qg-stats{display:flex; gap:10px; flex-wrap:wrap}
+.qg-stat{
+  display:flex; align-items:center; gap:6px; padding:6px 12px;
+  background:var(--bench); border-radius:10px; border:1px solid var(--line);
+  font-size:13.5px; font-weight:700; color:var(--muted);
+}
+.qg-stat b{color:var(--blue-d); font-size:16px}
+.qg-stat.time b{color:var(--pink-d)}
+.qg-progress{
+  display:flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.qg-progress .bar{
+  flex:1; height:10px; background:var(--track); border-radius:999px; overflow:hidden;
+}
+.qg-progress .bar i{
+  display:block; height:100%; width:0%;
+  background:linear-gradient(90deg, var(--blue), var(--blue-d));
+  transition:width .35s;
+}
+.qg-progress .pct{font-weight:700; font-size:13px; color:var(--blue-d); min-width:48px; text-align:right}
+.qg-card{
+  background:var(--bench); border:1px solid var(--line); border-radius:14px;
+  padding:18px 18px 14px; margin-bottom:14px;
+}
+.qg-q-num{
+  display:inline-block; background:var(--blue); color:#fff;
+  font-size:12.5px; font-weight:800; padding:3px 10px; border-radius:999px;
+  margin-bottom:8px;
+}
+.qg-q{font-size:16.5px; font-weight:700; line-height:1.55; margin:4px 0 14px; color:var(--ink)}
+.qg-q em{font-style:normal; color:var(--blue-d); background:var(--blue-l); padding:1px 6px; border-radius:5px}
+.qg-opts{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.qg-opt{
+  background:var(--card); border:2px solid var(--line); border-radius:12px;
+  padding:14px 16px; cursor:pointer; font-weight:600; font-size:14.5px;
+  text-align:left; color:var(--ink);
+  display:flex; align-items:center; gap:10px;
+  transition:transform .12s, border-color .15s, background-color .15s;
+}
+.qg-opt:hover{border-color:var(--blue); background:var(--card-sel); transform:translateY(-1px)}
+.qg-opt .k{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border-radius:8px;
+  background:var(--blue-l); color:var(--blue-d); font-weight:800; font-size:13px;
+}
+.qg-opt.correct{border-color:var(--ok); background:rgba(26,162,96,.10); color:var(--ok)}
+.qg-opt.correct .k{background:var(--ok); color:#fff}
+.qg-opt.wrong{border-color:var(--bad); background:rgba(224,71,59,.10); color:var(--bad)}
+.qg-opt.wrong .k{background:var(--bad); color:#fff}
+.qg-opt.disabled{cursor:not-allowed; opacity:.85}
+.qg-num-input{
+  display:flex; gap:10px; align-items:center; margin-top:6px; flex-wrap:wrap;
+}
+.qg-num-input input{
+  flex:1; min-width:160px; padding:12px 14px; font-size:15px; font-weight:700;
+  border:2px solid var(--line); border-radius:10px;
+  background:var(--card); color:var(--ink);
+}
+.qg-num-input input:focus{outline:none; border-color:var(--blue)}
+.qg-feedback{
+  margin-top:12px; padding:11px 14px; border-radius:10px;
+  font-size:14px; line-height:1.55; display:none;
+}
+.qg-feedback.show{display:block}
+.qg-feedback.good{background:rgba(26,162,96,.10); color:var(--ok); border:1px solid rgba(26,162,96,.35)}
+.qg-feedback.bad{background:rgba(224,71,59,.08); color:var(--bad); border:1px solid rgba(224,71,59,.30)}
+.qg-actions{
+  display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
+}
+.qg-btn{
+  border:none; padding:11px 18px; border-radius:10px; font-size:14px; font-weight:700;
+  cursor:pointer;
+}
+.qg-btn.primary{background:var(--blue); color:#fff}
+.qg-btn.primary:hover{background:var(--blue-d)}
+.qg-btn.ghost{background:var(--card); color:var(--muted); border:1px solid var(--line)}
+.qg-btn.ghost:hover{background:var(--row-hover); color:var(--ink)}
+.qg-btn:disabled{opacity:.45; cursor:not-allowed}
+
+/* quiz game result screen */
+.qg-result{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); padding:22px;
+}
+.qg-result-head{
+  text-align:center; padding-bottom:16px; border-bottom:1px solid var(--line); margin-bottom:16px;
+}
+.qg-result-head .grade{
+  display:inline-block; font-size:46px; font-weight:800;
+  background:linear-gradient(135deg, var(--blue), var(--blue-d));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  margin:0 0 4px;
+}
+.qg-result-head .msg{font-size:15px; color:var(--muted); margin-top:4px}
+.qg-result-stats{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:16px;
+}
+.qg-rs{
+  background:var(--bench); border:1px solid var(--line); border-radius:12px;
+  padding:14px; text-align:center;
+}
+.qg-rs .v{font-size:24px; font-weight:800; color:var(--blue-d); display:block}
+.qg-rs .l{font-size:12.5px; color:var(--muted); font-weight:600; margin-top:2px}
+.qg-review{margin-bottom:16px}
+.qg-review h3{font-size:15px; margin:0 0 10px; color:var(--blue-d)}
+.qg-review-item{
+  background:var(--bench); border:1px solid var(--line); border-radius:10px;
+  padding:10px 14px; margin-bottom:8px; font-size:13.5px; line-height:1.55;
+}
+.qg-review-item .res{font-weight:700; margin-right:8px}
+.qg-review-item .res.ok{color:var(--ok)}
+.qg-review-item .res.no{color:var(--bad)}
+
+/* capture page */
+.cap-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.cap-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); padding:18px 20px;
+}
+.cap-card h3{margin:0 0 12px; font-size:16px; color:var(--blue-d)}
+.cap-row{margin-bottom:12px}
+.cap-row label{
+  display:block; font-size:13px; font-weight:700;
+  color:var(--muted); margin-bottom:5px;
+}
+.cap-row input, .cap-row textarea{
+  width:100%; padding:11px 13px; font-size:14.5px;
+  border:1.5px solid var(--line); border-radius:10px;
+  background:var(--card); color:var(--ink);
+  font-family:inherit;
+}
+.cap-row textarea{min-height:100px; resize:vertical; line-height:1.55}
+.cap-row input:focus, .cap-row textarea:focus{outline:none; border-color:var(--blue)}
+.cap-info-bar{
+  background:var(--bench); border:1px solid var(--line); border-radius:10px;
+  padding:10px 14px; font-size:13px; color:var(--muted); margin-bottom:14px;
+}
+.cap-preview{
+  background:var(--bench); border:1px dashed var(--blue);
+  border-radius:12px; padding:14px; text-align:center; min-height:80px;
+  font-size:13px; color:var(--muted);
+}
+.cap-preview img{max-width:100%; border-radius:8px; border:1px solid var(--line)}
+.cap-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+.cap-actions .btn{flex:1 1 auto}
+.cap-tag-row{
+  display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;
+}
+.cap-tag-row .tag{
+  background:var(--blue-l); color:var(--blue-d);
+  padding:4px 10px; border-radius:999px; font-size:12.5px; font-weight:700;
+}
+
+/* identity bar (shown on captured image) */
+.capture-stamp{
+  background:linear-gradient(135deg,var(--blue) 0%, var(--blue-d) 100%);
+  color:#fff; padding:12px 18px; border-radius:12px;
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:12px; flex-wrap:wrap; gap:8px;
+}
+.capture-stamp .left{font-weight:800; font-size:15px}
+.capture-stamp .right{font-size:12.5px; opacity:.92}
+
+/* ===================== Mobile responsive ===================== */
+@media (max-width: 820px){
+  .wrap{padding:12px 12px 50px}
+  header.brand{border-radius:16px; padding:18px 18px}
+  .brand h1{font-size:22px}
+  .brand p{font-size:13px}
+  .pagenav{flex-wrap:wrap; padding:5px}
+  .pagenav .pbtn{flex:1 1 45%; min-width:0; padding:10px 8px; font-size:13.5px}
+  .pagenav .pbtn .ic{font-size:16px}
+  .pagenav .pbtn .lab-short{display:inline}
+  .pagenav .pbtn .lab-full{display:none}
+
+  /* tabs (reflect/refract) become compact */
+  .tabs{flex-direction:column}
+  .tab{padding:11px 14px}
+
+  /* main grid becomes 1 column */
+  .grid{grid-template-columns:1fr !important}
+
+  /* theory grid 1 column */
+  .theory-grid{grid-template-columns:1fr}
+  .cap-grid{grid-template-columns:1fr}
+
+  /* quiz game */
+  .qg-opts{grid-template-columns:1fr}
+  .qg-stats{width:100%; justify-content:space-between}
+  .qg-stat{flex:1 1 0; justify-content:center; font-size:12.5px}
+  .qg-q{font-size:15px}
+  .qg-card{padding:14px}
+
+  /* result */
+  .qg-result-stats{grid-template-columns:1fr; gap:8px}
+  .qg-result-head .grade{font-size:38px}
+
+  /* table horizontal scroll already in tablewrap */
+  table{font-size:13px}
+
+  /* bigger touch buttons */
+  .btn, .qg-btn{min-height:42px}
+  .qg-opt{padding:13px 14px; font-size:14px}
+}
+@media (min-width:821px){
+  .pagenav .pbtn .lab-short{display:none}
+  .pagenav .pbtn .lab-full{display:inline}
+}
+@media (max-width:480px){
+  header.brand{padding:16px 14px}
+  .brand h1{font-size:20px}
+  /* keep nav as a tidy 2×2 grid with short labels */
+  .pagenav .pbtn{flex:1 1 44%; font-size:14px; padding:11px 6px}
+  .pagenav .pbtn .lab-short{display:inline}
+  .pagenav .pbtn .lab-full{display:none}
+  .qg-head h2{font-size:17px}
+  .theory-card{padding:14px 16px}
+  .theory-card h3{font-size:15.5px}
+  .theory-card p, .theory-card ul{font-size:13.5px}
+}
+
+/* ---------- mobile: theory button, modal, banner, input zoom ---------- */
+@media (max-width:560px){
+  .theory-btn{padding:0 11px; font-size:13px}
+  .theory-btn .tb-full{display:none}
+  .theory-btn .tb-short{display:inline}
+  .brand .topctl{top:12px; right:12px}
+  /* give header room so title doesn't sit under the two top buttons */
+  header.brand{padding-top:60px}
+  .modal-overlay{padding:0}
+  .modal-box{width:100%; max-height:100vh; height:100vh; border-radius:0}
+  .modal-head{padding:14px 16px}
+  .modal-head h2{font-size:16px}
+  .modal-body{padding:14px 14px 28px}
+  .mode-banner{padding:11px 13px; gap:10px; margin:12px 0}
+  .mode-banner .mb-ic{width:40px; height:40px; font-size:22px}
+  .mode-banner .mb-txt b{font-size:14.5px}
+  .mode-banner .mb-txt span{font-size:12px}
+}
+/* iOS: inputs ≥16px prevent auto-zoom on focus */
+@media (max-width:820px){
+  input[type="text"], input[type="number"], textarea, select{font-size:16px !important}
+}
+
+/* prevent body scroll lock issues on mobile */
+html, body{overflow-x:hidden}
 </style>
 </head>
 <body class="mode-reflect">
@@ -270,6 +728,7 @@ body.mode-refract .reflect-only{display:none}
 
   <header class="brand">
     <div class="topctl">
+      <button class="theory-btn" id="theoryOpenBtn" aria-label="이론 자료 보기">📖 <span class="tb-full">이론 자료</span><span class="tb-short">이론</span></button>
       <button class="icon-btn" id="themeBtn" aria-label="다크/라이트 모드 전환" title="다크/라이트 모드">🌙</button>
     </div>
     <span class="kicker">🔬 송쌤과학 가상실험실 · 중학교 과학 (2022 개정)</span>
@@ -287,14 +746,210 @@ body.mode-refract .reflect-only{display:none}
     </div>
   </header>
 
-  <div class="tabs">
-    <div class="tab on" data-mode="reflect" role="button" tabindex="0">
+  <nav class="pagenav" id="pageNav" role="tablist" aria-label="메뉴 네비게이션">
+    <div class="pbtn on" data-nav="reflect" role="tab" tabindex="0">
       <span class="ic">🪞</span>
-      <span>반사 실험 (거울)<small>입사각 = 반사각</small></span>
+      <span class="lab-full">반사법칙 실험</span><span class="lab-short">반사</span>
     </div>
-    <div class="tab" data-mode="refract" role="button" tabindex="0">
+    <div class="pbtn" data-nav="refract" role="tab" tabindex="0">
       <span class="ic">🌊</span>
-      <span>굴절 실험 (수조)<small>매질이 다르면 굴절각도 달라져요</small></span>
+      <span class="lab-full">굴절법칙 실험</span><span class="lab-short">굴절</span>
+    </div>
+    <div class="pbtn" data-nav="quizgame" role="tab" tabindex="0">
+      <span class="ic">🎮</span>
+      <span class="lab-full">활동 퀴즈 게임</span><span class="lab-short">퀴즈</span>
+    </div>
+    <div class="pbtn" data-nav="capture" role="tab" tabindex="0">
+      <span class="ic">📸</span>
+      <span class="lab-full">결과 캡쳐하기</span><span class="lab-short">캡처</span>
+    </div>
+  </nav>
+
+  <!-- GLOBAL STUDENT BAR (메뉴와 별개 · 어느 페이지/위치에서나 입력) -->
+  <div class="stu-bar" id="stuBar" role="group" aria-label="학생 정보 입력">
+    <span class="stu-ic" aria-hidden="true">🪪</span>
+    <div class="stu-field">
+      <label for="stuId">학번</label>
+      <input type="text" id="stuId" placeholder="예) 30315" autocomplete="off" inputmode="text">
+    </div>
+    <div class="stu-field">
+      <label for="stuName">이름</label>
+      <input type="text" id="stuName" placeholder="예) 김송쌤" autocomplete="off">
+    </div>
+    <span class="stu-status" id="stuStatus" aria-live="polite">미입력</span>
+  </div>
+
+  <!-- THEORY MODAL (버튼으로 열림) -->
+  <div class="modal-overlay" id="theoryModal" role="dialog" aria-modal="true" aria-label="이론 자료" hidden>
+    <div class="modal-box">
+      <div class="modal-head">
+        <h2>📖 빛의 반사와 굴절 · 이론 자료</h2>
+        <button class="modal-close" id="theoryCloseBtn" aria-label="이론 자료 닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="theory-grid">
+
+      <div class="theory-card">
+        <h3><span class="badge-num">1</span>빛의 직진과 매질</h3>
+        <p>빛은 같은 매질 안에서는 <span class="key">직진</span>합니다. 매질이 바뀌면 빛의 속력이 달라져 진행 방향이 꺾이는 현상을 <span class="key">굴절</span>이라고 합니다. 또 빛이 매질의 경계면에 부딪혀 다시 같은 매질로 되돌아오는 현상을 <span class="key">반사</span>라 합니다.</p>
+        <div class="theory-diagram">
+          <svg viewBox="0 0 300 178" width="100%" role="img" aria-label="입사·반사·굴절 용어 다이어그램">
+            <defs>
+              <marker id="m1r" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path class="mk-red" d="M0,0 L6,3 L0,6 Z"/></marker>
+              <marker id="m1b" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path class="mk-blue" d="M0,0 L6,3 L0,6 Z"/></marker>
+              <marker id="m1g" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path class="mk-green" d="M0,0 L6,3 L0,6 Z"/></marker>
+            </defs>
+            <rect class="dg-med" x="20" y="112" width="260" height="56"/>
+            <line x1="20" y1="112" x2="280" y2="112" class="dg-surface" stroke-width="3"/>
+            <line x1="150" y1="24" x2="150" y2="164" class="dg-normal"/>
+            <line x1="78" y1="32" x2="150" y2="112" class="dg-inc" marker-end="url(#m1r)"/>
+            <line x1="150" y1="112" x2="222" y2="32" class="dg-ref" marker-end="url(#m1b)"/>
+            <line x1="150" y1="112" x2="180" y2="162" class="dg-refr" marker-end="url(#m1g)"/>
+            <circle cx="150" cy="112" r="3.4" class="dg-pt"/>
+            <path d="M 150 80 A 32 32 0 0 0 131 86" class="dg-arc"/>
+            <path d="M 150 80 A 32 32 0 0 1 169 86" class="dg-arc"/>
+            <path d="M 150 144 A 32 32 0 0 1 162 142" class="dg-arc"/>
+            <text x="66" y="26" class="dg-lbl-inc" text-anchor="middle">입사광선</text>
+            <text x="234" y="26" class="dg-lbl-ref" text-anchor="middle">반사광선</text>
+            <text x="210" y="160" class="dg-lbl-refr">굴절광선</text>
+            <text x="150" y="17" class="dg-lbl" text-anchor="middle">법선</text>
+            <text x="119" y="76" class="dg-ang">θᵢ</text>
+            <text x="173" y="76" class="dg-ang">θᵣ</text>
+            <text x="159" y="153" class="dg-ang">θ′</text>
+            <text x="26" y="106" class="dg-lbl-blue">공기</text>
+            <text x="276" y="130" class="dg-lbl-blue" text-anchor="end">물·유리</text>
+          </svg>
+        </div>
+        <ul>
+          <li><b>입사광선</b>: 경계면(거울·물 표면 등)으로 들어가는 빛</li>
+          <li><b>법선</b>: 경계면에 <em>수직</em>인 가상의 선 — 모든 각의 기준</li>
+          <li><b>입사각</b>: 입사광선과 법선이 이루는 각</li>
+          <li><b>반사각·굴절각</b>: 각각 반사·굴절광선과 법선이 이루는 각</li>
+        </ul>
+      </div>
+
+      <div class="theory-card">
+        <h3><span class="badge-num">2</span>반사의 법칙</h3>
+        <div class="theory-diagram">
+          <svg viewBox="0 0 290 168" width="100%" role="img" aria-label="반사의 법칙 다이어그램">
+            <defs>
+              <marker id="m2r" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path class="mk-red" d="M0,0 L6,3 L0,6 Z"/></marker>
+              <marker id="m2b" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path class="mk-blue" d="M0,0 L6,3 L0,6 Z"/></marker>
+            </defs>
+            <rect class="dg-mirror" x="25" y="126" width="240" height="10" rx="2"/>
+            <g class="dg-hatch">
+              <line x1="40" y1="136" x2="32" y2="147"/><line x1="62" y1="136" x2="54" y2="147"/>
+              <line x1="84" y1="136" x2="76" y2="147"/><line x1="106" y1="136" x2="98" y2="147"/>
+              <line x1="128" y1="136" x2="120" y2="147"/><line x1="150" y1="136" x2="142" y2="147"/>
+              <line x1="172" y1="136" x2="164" y2="147"/><line x1="194" y1="136" x2="186" y2="147"/>
+              <line x1="216" y1="136" x2="208" y2="147"/><line x1="238" y1="136" x2="230" y2="147"/>
+              <line x1="260" y1="136" x2="252" y2="147"/>
+            </g>
+            <line x1="25" y1="126" x2="265" y2="126" class="dg-surface" stroke-width="2.4"/>
+            <line x1="145" y1="28" x2="145" y2="126" class="dg-normal"/>
+            <line x1="58" y1="42" x2="145" y2="126" class="dg-inc" marker-end="url(#m2r)"/>
+            <line x1="145" y1="126" x2="232" y2="42" class="dg-ref" marker-end="url(#m2b)"/>
+            <circle cx="145" cy="126" r="3.2" class="dg-pt"/>
+            <path d="M 145 88 A 38 38 0 0 0 121 98" class="dg-arc"/>
+            <path d="M 145 88 A 38 38 0 0 1 169 98" class="dg-arc"/>
+            <text x="114" y="82" class="dg-ang">θᵢ</text>
+            <text x="170" y="82" class="dg-ang">θᵣ</text>
+            <text x="48" y="36" class="dg-lbl-inc" text-anchor="middle">입사광선</text>
+            <text x="242" y="36" class="dg-lbl-ref" text-anchor="middle">반사광선</text>
+            <text x="145" y="22" class="dg-lbl" text-anchor="middle">법선</text>
+            <text x="260" y="120" class="dg-lbl-blue" text-anchor="end">거울</text>
+          </svg>
+        </div>
+        <div class="formula">θᵢ = θᵣ &nbsp; (입사각 = 반사각)</div>
+        <ul>
+          <li>입사광선·반사광선·법선은 한 평면 위에 있다.</li>
+          <li>입사각과 반사각은 항상 같다(법선 기준).</li>
+          <li>빛의 색(파장)에 상관없이 항상 성립한다.</li>
+        </ul>
+      </div>
+
+      <div class="theory-card">
+        <h3><span class="badge-num">3</span>굴절과 스넬 법칙</h3>
+        <div class="theory-diagram">
+          <svg viewBox="0 0 290 172" width="100%" role="img" aria-label="굴절과 스넬 법칙 다이어그램">
+            <defs>
+              <marker id="m3r" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path class="mk-red" d="M0,0 L6,3 L0,6 Z"/></marker>
+              <marker id="m3g" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path class="mk-green" d="M0,0 L6,3 L0,6 Z"/></marker>
+            </defs>
+            <rect class="dg-med" x="22" y="90" width="246" height="70"/>
+            <line x1="22" y1="90" x2="268" y2="90" class="dg-surface" stroke-width="2.4"/>
+            <line x1="150" y1="24" x2="150" y2="160" class="dg-normal"/>
+            <line x1="70" y1="28" x2="150" y2="90" class="dg-inc" marker-end="url(#m3r)"/>
+            <line x1="150" y1="90" x2="214" y2="140" class="dg-cont"/>
+            <line x1="150" y1="90" x2="186" y2="158" class="dg-refr" marker-end="url(#m3g)"/>
+            <circle cx="150" cy="90" r="3.2" class="dg-pt"/>
+            <path d="M 150 56 A 34 34 0 0 0 126 64" class="dg-arc"/>
+            <path d="M 150 124 A 34 34 0 0 1 166 121" class="dg-arc"/>
+            <text x="119" y="60" class="dg-ang">θ₁</text>
+            <text x="158" y="130" class="dg-ang">θ₂</text>
+            <text x="56" y="24" class="dg-lbl-inc" text-anchor="middle">입사광선</text>
+            <text x="196" y="152" class="dg-lbl-refr">굴절광선</text>
+            <text x="220" y="135" class="dg-lbl" font-size="9.5">꺾이지 않을 때</text>
+            <text x="150" y="17" class="dg-lbl" text-anchor="middle">법선</text>
+            <text x="28" y="84" class="dg-lbl-blue">공기 (n₁)</text>
+            <text x="264" y="106" class="dg-lbl-blue" text-anchor="end">물·유리 (n₂)</text>
+          </svg>
+        </div>
+        <div class="formula">n₁ sin θ₁ = n₂ sin θ₂</div>
+        <ul>
+          <li>매질의 굴절률(n)이 클수록 빛이 <b>법선 쪽으로</b> 더 꺾인다.</li>
+          <li>공기 → 물: 법선 쪽으로 꺾여 <b>굴절각 &lt; 입사각</b>.</li>
+          <li>물 → 공기: 법선에서 멀어져 <b>굴절각 &gt; 입사각</b>.</li>
+          <li>입사각이 0°이면 굴절각도 0°(꺾이지 않고 직진).</li>
+        </ul>
+      </div>
+
+      <div class="theory-card">
+        <h3><span class="badge-num">4</span>매질별 굴절률 비교</h3>
+        <p>굴절률은 진공 속 빛의 속력과 매질 속 빛의 속력의 비입니다. 굴절률이 큰 매질일수록 빛의 속력은 느려지고 굴절도 커집니다.</p>
+        <table class="theory-table">
+          <thead><tr><th>매질</th><th>대표 굴절률 n</th></tr></thead>
+          <tbody>
+            <tr><td>진공 / 공기</td><td>1.00</td></tr>
+            <tr><td>물</td><td>1.33</td></tr>
+            <tr><td>유리 (크라운)</td><td>1.50</td></tr>
+            <tr><td>다이아몬드</td><td>2.42</td></tr>
+          </tbody>
+        </table>
+        <div class="nbars">
+          <div class="nbar-row"><span class="nbar-name">진공/공기</span><span class="nbar-track"><span class="nbar-fill" style="width:41%"></span></span><span class="nbar-val">1.00</span></div>
+          <div class="nbar-row"><span class="nbar-name">물</span><span class="nbar-track"><span class="nbar-fill" style="width:55%"></span></span><span class="nbar-val">1.33</span></div>
+          <div class="nbar-row"><span class="nbar-name">유리</span><span class="nbar-track"><span class="nbar-fill" style="width:62%"></span></span><span class="nbar-val">1.50</span></div>
+          <div class="nbar-row"><span class="nbar-name">다이아몬드</span><span class="nbar-track"><span class="nbar-fill" style="width:100%"></span></span><span class="nbar-val">2.42</span></div>
+        </div>
+        <p style="margin-top:10px"><b>예) 입사각 30°로 공기에서 물로</b> → sin θ₂ = sin30° ÷ 1.33 ≈ 0.376 → <span class="key">굴절각 ≈ 22°</span></p>
+      </div>
+
+      <div class="theory-card" style="grid-column:1/-1">
+        <h3><span class="badge-num">5</span>일상 속 반사·굴절 현상</h3>
+        <ul>
+          <li>물속의 다리가 짧아 보이는 이유 — 물에서 공기로 나올 때 빛이 꺾여서 실제보다 위에 있는 것처럼 보입니다.</li>
+          <li>젓가락이 물잔에서 꺾여 보이는 이유 — 두 매질의 경계에서 굴절이 일어나기 때문.</li>
+          <li>거울에 비친 내 모습, 자동차 사이드미러 — 반사의 법칙 활용.</li>
+          <li>무지개·프리즘 — 빛의 색마다 굴절률이 미세하게 달라 분산이 일어남.</li>
+          <li>다이아몬드가 반짝이는 이유 — 큰 굴절률과 전반사로 빛이 내부에서 여러 번 꺾여 나오기 때문.</li>
+        </ul>
+        <p style="margin-top:6px; color:var(--muted); font-size:13.5px">▶ 메뉴에서 <b>반사법칙 실험</b>·<b>굴절법칙 실험</b>으로 직접 각도와 매질을 바꿔 보고, <b>활동 퀴즈 게임</b>에서 배운 내용을 확인해 보세요.</p>
+      </div>
+
+    </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIMENT PAGE -->
+  <section class="page page-on" data-page="experiment" id="page-experiment">
+
+  <div class="mode-banner" id="modeBanner">
+    <span class="mb-ic" id="mbIc">🪞</span>
+    <div class="mb-txt">
+      <b id="mbTitle">반사법칙 실험 (거울)</b>
+      <span id="mbSub">입사각 = 반사각 · 법선을 기준으로 측정</span>
     </div>
   </div>
 
@@ -432,24 +1087,127 @@ body.mode-refract .reflect-only{display:none}
     </div>
   </div>
 
-  <!-- ACTIVITY WORKSHEET -->
-  <div class="card" style="margin-top:16px">
-    <h2>📝 활동 문제 <span style="font-weight:600;color:var(--muted);font-size:12.5px;margin-left:4px">무대에서 직접 측정하며 풀어요</span></h2>
-    <div class="body">
-      <div class="act-progress">
-        <span>진행도</span>
-        <span class="bar"><i id="actBar"></i></span>
-        <span><b id="actDone" style="color:var(--blue)">0</b>/<span id="actTotal">0</span></span>
+  
+    <!-- LEGACY STUBS (hidden, kept for backward compatibility with original JS) -->
+    <div style="display:none" aria-hidden="true">
+      <div id="actBar"></div>
+      <span id="actDone">0</span>
+      <span id="actTotal">0</span>
+      <div id="actList"></div>
+      <button id="actReveal"></button>
+      <button id="actReset"></button>
+    </div>
+  </section>
+
+  <!-- QUIZ GAME PAGE -->
+  <section class="page" data-page="quizgame" id="page-quizgame">
+    <div class="qg-wrap" id="qgPlayWrap">
+      <div class="qg-head">
+        <h2>🎮 빛의 반사·굴절 활동 퀴즈 게임</h2>
+        <div class="qg-stats">
+          <span class="qg-stat">문항 <b><span id="qgNow">1</span>/<span id="qgTotal">0</span></b></span>
+          <span class="qg-stat">점수 <b id="qgScore">0</b></span>
+          <span class="qg-stat time">남은 시간 <b id="qgTime">30</b>초</span>
+        </div>
       </div>
-      <div class="act" id="actList"></div>
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap">
-        <button class="btn ghost sm" id="actReveal" style="width:auto">👀 정답·해설 모두 보기</button>
-        <button class="btn ghost sm" id="actReset" style="width:auto">↺ 다시 풀기</button>
+      <div class="qg-progress">
+        <span style="font-size:12px; color:var(--muted); font-weight:700">진행도</span>
+        <span class="bar"><i id="qgBar"></i></span>
+        <span class="pct" id="qgPct">0%</span>
+      </div>
+
+      <div class="qg-card" id="qgCard">
+        <span class="qg-q-num">Q<span id="qgQnum">1</span></span>
+        <div class="qg-q" id="qgQ"></div>
+        <div id="qgBody"></div>
+        <div class="qg-feedback" id="qgFb"></div>
+      </div>
+
+      <div class="qg-actions">
+        <button class="qg-btn ghost" id="qgSkip">⤼ 건너뛰기</button>
+        <button class="qg-btn primary" id="qgNext" disabled>다음 문제 →</button>
       </div>
     </div>
-  </div>
 
-  <footer>
+    <!-- result screen -->
+    <div class="qg-result" id="qgResultWrap" style="display:none">
+      <div class="qg-result-head">
+        <div class="grade" id="qgGrade">0점</div>
+        <div class="msg" id="qgGradeMsg">결과를 확인해 보세요</div>
+      </div>
+      <div class="qg-result-stats">
+        <div class="qg-rs"><span class="v" id="qgRsCorrect">0</span><span class="l">맞힌 문제</span></div>
+        <div class="qg-rs"><span class="v" id="qgRsTotal">0</span><span class="l">전체 문제</span></div>
+        <div class="qg-rs"><span class="v" id="qgRsTime">0초</span><span class="l">총 풀이 시간</span></div>
+      </div>
+      <div class="qg-review">
+        <h3>📝 문항별 결과</h3>
+        <div id="qgReviewList"></div>
+      </div>
+      <div class="qg-actions">
+        <button class="qg-btn ghost" id="qgRestart">↺ 다시 풀기</button>
+        <button class="qg-btn ghost" id="qgGotoCapture">📸 결과 캡처하기</button>
+        <button class="qg-btn primary" id="qgCaptureBtn">🖼️ 이 화면 캡처 저장</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPTURE PAGE -->
+  <section class="page" data-page="capture" id="page-capture">
+    <div class="cap-grid">
+      <div class="cap-card">
+        <h3>👤 학생 정보 입력</h3>
+        <p style="margin:-4px 0 12px; font-size:12.5px; color:var(--muted)">상단 <b>🪪 학번 바</b>와 자동 연동됩니다 — 어느 페이지에서든 입력하면 여기에도 그대로 반영돼요.</p>
+        <div class="cap-row">
+          <label for="capId">학번</label>
+          <input type="text" id="capId" placeholder="예) 30315" autocomplete="off" inputmode="text">
+        </div>
+        <div class="cap-row">
+          <label for="capName">이름</label>
+          <input type="text" id="capName" placeholder="예) 김송쌤" autocomplete="off">
+        </div>
+        <div class="cap-row">
+          <label for="capDesc">결과 설명 (실험 결과 & 알게 된 점)</label>
+          <textarea id="capDesc" placeholder="예) 입사각이 30°일 때 반사각도 30°임을 확인했습니다. 매질을 물 → 유리 → 다이아몬드로 바꿀수록 굴절각이 작아져 빛이 더 많이 꺾이는 것을 관찰했습니다."></textarea>
+        </div>
+        <div class="cap-info-bar">
+          ⓘ 학번·이름·설명을 모두 입력하고 <b>아래 버튼</b>을 누르면 <u>실험 장면 + 퀴즈 결과</u>가 학생 정보와 함께 한 장의 이미지로 저장됩니다.
+        </div>
+        <div class="cap-tag-row" id="capTagRow">
+          <span class="tag">학번: <span id="capTagId">-</span></span>
+          <span class="tag">이름: <span id="capTagName">-</span></span>
+          <span class="tag">퀴즈 점수: <span id="capTagScore">-</span></span>
+        </div>
+      </div>
+
+      <div class="cap-card">
+        <h3>📸 캡처 옵션 & 미리보기</h3>
+        <div class="cap-row">
+          <label>캡처 항목 선택</label>
+          <div style="display:flex; flex-direction:column; gap:8px; padding:6px 0">
+            <label style="display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; cursor:pointer">
+              <input type="checkbox" id="capOptExp" checked style="width:18px; height:18px"> 실험 장면(레이저·각도기)
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; cursor:pointer">
+              <input type="checkbox" id="capOptQuiz" checked style="width:18px; height:18px"> 활동 퀴즈 결과(점수·문항별 결과)
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; cursor:pointer">
+              <input type="checkbox" id="capOptTable" style="width:18px; height:18px"> 측정 기록 표
+            </label>
+          </div>
+        </div>
+        <div class="cap-actions">
+          <button class="btn primary" id="capDoBtn">📷 결과 캡처 저장</button>
+          <button class="btn ghost" id="capPreviewBtn">👁️ 미리보기</button>
+        </div>
+        <div style="margin-top:14px">
+          <label style="display:block; font-size:13px; font-weight:700; color:var(--muted); margin-bottom:5px">미리보기</label>
+          <div class="cap-preview" id="capPreview">학생 정보 입력 후 <b>미리보기</b> 또는 <b>결과 캡처 저장</b>을 누르세요.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer>
     <div>
       <span class="badge">© 송쌤과학</span>
       <span class="badge">중학교 과학 · 빛과 파동</span>
@@ -921,19 +1679,30 @@ cv.addEventListener("pointerup",()=>{dragging=false;});
 cv.addEventListener("pointercancel",()=>{dragging=false;});
 
 /* ---------- controls wiring ---------- */
-document.querySelectorAll(".tab").forEach(t=>{
-  const act=()=>{
-    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
-    t.classList.add("on");
-    S.mode=t.dataset.mode;
-    document.body.classList.toggle("mode-refract",S.mode==="refract");
-    document.body.classList.toggle("mode-reflect",S.mode==="reflect");
-    document.getElementById("thOut").textContent=(S.mode==="reflect")?"반사각":"굴절각";
-    updateLegend();draw();newMission();
-  };
-  t.addEventListener("click",act);
-  t.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});
-});
+/* ---------- 실험 모드 전환 (네비게이션에서 호출) ---------- */
+function setMode(mode){
+  S.mode = (mode==="refract") ? "refract" : "reflect";
+  document.body.classList.toggle("mode-refract", S.mode==="refract");
+  document.body.classList.toggle("mode-reflect", S.mode==="reflect");
+  const thOut=document.getElementById("thOut");
+  if(thOut) thOut.textContent=(S.mode==="reflect")?"반사각":"굴절각";
+  const mbIc=document.getElementById("mbIc"), mbTitle=document.getElementById("mbTitle"),
+        mbSub=document.getElementById("mbSub"), banner=document.getElementById("modeBanner");
+  if(S.mode==="reflect"){
+    if(mbIc) mbIc.textContent="🪞";
+    if(mbTitle) mbTitle.textContent="반사법칙 실험 (거울)";
+    if(mbSub) mbSub.textContent="입사각 = 반사각 · 법선을 기준으로 측정";
+    if(banner) banner.classList.remove("refract");
+  }else{
+    if(mbIc) mbIc.textContent="🌊";
+    if(mbTitle) mbTitle.textContent="굴절법칙 실험 (수조)";
+    if(mbSub) mbSub.textContent="매질(물·유리·다이아몬드)에 따라 굴절각이 달라져요";
+    if(banner) banner.classList.add("refract");
+  }
+  try{ updateLegend(); }catch(e){}
+  try{ draw(); }catch(e){}
+  try{ newMission(); }catch(e){}
+}
 document.getElementById("colorChips").addEventListener("click",e=>{
   const c=e.target.closest(".chip");if(!c)return;
   document.querySelectorAll("#colorChips .chip").forEach(x=>x.classList.remove("on"));
@@ -1126,10 +1895,6 @@ const ACT=[
    cols:["매질","굴절각(측정값)"],
    rows:[["물","water"],["유리","glass"],["다이아몬드","diamond"]].map(([nm,k])=>({given:nm,ans:refrAngle(50,MEDIA[k].n)})),
    exp:"굴절률이 클수록 법선 쪽으로 더 꺾여 굴절각이 작아집니다. 물(약 35°) > 유리(약 30°) > 다이아몬드(약 18°)."},
-  {type:"num",
-   title:`공기에서 <em>물(n=1.33)</em>로 빛이 <em>입사각 30°</em>로 들어갑니다. 스넬 법칙으로 <span class="pin">굴절각</span>을 구하세요. (가장 가까운 정수)`,
-   ans:refrAngle(30,1.333),tol:1,
-   exp:"sin(굴절각)=sin30°÷1.33=0.5÷1.33≈0.376 → 굴절각≈22°. 무대에서 물·30°로 맞춰 확인해 보세요."},
   {type:"mc",
    title:`빛이 법선과 나란하게 <em>입사각 0°</em>로 수직 입사하면 빛의 경로는?`,
    opts:["90°로 꺾인다","꺾이지 않고 그대로 직진한다","모두 반사된다","두 갈래로 갈라진다"],ans:1,
@@ -1218,6 +1983,469 @@ Promise.all([loadImg("tank"),loadImg("laser")]).then(()=>{
   applyTheme(saved);
   syncSide();updateLegend();renderActivity();resize();newMission();newQuiz();
 });
+
+
+/* ========================================================
+   송쌤과학 확장 JS — page nav · 활동 퀴즈 게임 · 결과 캡처
+   ======================================================== */
+
+/* ---------- main menu nav (reflect / refract / quizgame / capture) ---------- */
+const NAVS = ["reflect","refract","quizgame","capture"];
+function navHighlightForPage(page){
+  if(page==="experiment") return (S.mode==="refract")?"refract":"reflect";
+  return page; // quizgame / capture
+}
+/* 경량: 섹션 표시 + 네비 하이라이트만 (캡처 흐름에서 사용 — 상태/스크롤 영향 없음) */
+function switchPage(page){
+  document.querySelectorAll("section.page").forEach(s=>{
+    s.classList.toggle("page-on", s.dataset.page===page);
+  });
+  const nav = navHighlightForPage(page);
+  document.querySelectorAll(".pagenav .pbtn").forEach(b=>{
+    b.classList.toggle("on", b.dataset.nav===nav);
+  });
+}
+/* 사용자 클릭: 모드 설정 + 페이지 전환 + 리사이즈 + 스크롤 */
+function navTo(nav){
+  if(!NAVS.includes(nav)) nav="reflect";
+  if(nav==="reflect") setMode("reflect");
+  else if(nav==="refract") setMode("refract");
+  const page = (nav==="reflect"||nav==="refract") ? "experiment" : nav;
+  switchPage(page);
+  if(page==="experiment"){ try{ resize(); }catch(e){} }
+  try{ window.scrollTo({top:0, behavior:"smooth"}); }catch(e){}
+}
+document.querySelectorAll(".pagenav .pbtn").forEach(btn=>{
+  btn.addEventListener("click",()=>navTo(btn.dataset.nav));
+  btn.addEventListener("keydown",e=>{
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();navTo(btn.dataset.nav);}
+  });
+});
+
+/* ---------- 이론 자료 모달 ---------- */
+const theoryModal = document.getElementById("theoryModal");
+function openTheory(){
+  theoryModal.hidden = false;
+  theoryModal.classList.add("open");
+  document.body.classList.add("modal-open");
+  const c = document.getElementById("theoryCloseBtn"); if(c) c.focus();
+}
+function closeTheory(){
+  theoryModal.classList.remove("open");
+  theoryModal.hidden = true;
+  document.body.classList.remove("modal-open");
+}
+document.getElementById("theoryOpenBtn").addEventListener("click", openTheory);
+document.getElementById("theoryCloseBtn").addEventListener("click", closeTheory);
+theoryModal.addEventListener("click", e=>{ if(e.target===theoryModal) closeTheory(); });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && theoryModal.classList.contains("open")) closeTheory(); });
+
+
+/* ---------- 활동 퀴즈 게임 (Quiz Game) ----------
+   ACT 배열의 활동 문제와 추가 개념 문제를 혼합해 게임 형식으로 출제. */
+const QG_EXTRA = [
+  {type:"mc", title:"빛이 거울에 부딪혀 반사될 때 항상 성립하는 것은?",
+   opts:["입사각 = 반사각","입사각 > 반사각","입사각 < 반사각","빛의 색에 따라 다르다"], ans:0,
+   exp:"반사 법칙: 입사각과 반사각은 법선을 기준으로 항상 같습니다."},
+  {type:"mc", title:"입사각·반사각·굴절각은 무엇을 기준으로 측정할까요?",
+   opts:["거울면(경계면)","법선","수평선","레이저 몸체"], ans:1,
+   exp:"모든 각은 경계면에 수직인 '법선'을 기준으로 측정합니다."},
+  {type:"mc", title:"빛이 공기에서 물로 비스듬히 들어갈 때 굴절각은?",
+   opts:["입사각보다 크다","입사각보다 작다","입사각과 같다","항상 90°"], ans:1,
+   exp:"굴절률이 큰 물로 들어가면 법선 쪽으로 꺾여 굴절각이 입사각보다 작아집니다."},
+  {type:"mc", title:"같은 물질로 들어갈 때 입사각을 키우면 굴절각은?",
+   opts:["함께 커진다","작아진다","변하지 않는다","항상 0이 된다"], ans:0,
+   exp:"입사각이 커지면 굴절각도 함께 커집니다(단, 입사각보다는 작게)."},
+  {type:"num", title:"거울 반사 실험에서 입사각이 45°일 때 반사각은? (°)",
+   ans:45, tol:0,
+   exp:"반사 법칙에 따라 반사각 = 입사각 = 45°."},
+];
+
+/* QG_POOL: ACT 항목 중 mc/num 만 가져와 합침 */
+const QG_POOL = [];
+ACT.forEach(it=>{
+  if(it.type==="mc"){
+    QG_POOL.push({type:"mc", title:stripHTML(it.title), opts:it.opts, ans:it.ans, exp:stripHTML(it.exp)});
+  } else if(it.type==="num"){
+    QG_POOL.push({type:"num", title:stripHTML(it.title), ans:it.ans, tol:(it.tol||1), exp:stripHTML(it.exp)});
+  }
+});
+QG_EXTRA.forEach(it=>QG_POOL.push(it));
+
+function stripHTML(s){return String(s||"").replace(/<[^>]+>/g,"").replace(/&nbsp;/g," ").trim();}
+function shuffle(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+
+const QG_TIME_PER_Q = 30; // seconds
+const QG_LEN = Math.min(8, QG_POOL.length);
+let qgState = null;
+
+function qgInit(){
+  qgState = {
+    list: shuffle(QG_POOL).slice(0, QG_LEN),
+    idx: 0, score: 0, answered:false,
+    startTs: Date.now(), elapsed:0,
+    timeLeft: QG_TIME_PER_Q,
+    timer:null,
+    results: [], // {q, ok, picked, ans}
+  };
+  document.getElementById("qgTotal").textContent = QG_LEN;
+  document.getElementById("qgScore").textContent = 0;
+  document.getElementById("qgPlayWrap").style.display = "";
+  document.getElementById("qgResultWrap").style.display = "none";
+  qgRender();
+}
+function qgClearTimer(){if(qgState && qgState.timer){clearInterval(qgState.timer);qgState.timer=null;}}
+function qgStartTimer(){
+  qgClearTimer();
+  qgState.timeLeft = QG_TIME_PER_Q;
+  document.getElementById("qgTime").textContent = qgState.timeLeft;
+  qgState.timer = setInterval(()=>{
+    qgState.timeLeft--;
+    document.getElementById("qgTime").textContent = Math.max(0,qgState.timeLeft);
+    if(qgState.timeLeft<=0){
+      qgClearTimer();
+      if(!qgState.answered) qgTimeout();
+    }
+  }, 1000);
+}
+function qgRender(){
+  const it = qgState.list[qgState.idx];
+  qgState.answered = false;
+  document.getElementById("qgNow").textContent = qgState.idx+1;
+  document.getElementById("qgQnum").textContent = qgState.idx+1;
+  document.getElementById("qgQ").innerHTML = it.title;
+  const pct = Math.round(qgState.idx / QG_LEN * 100);
+  document.getElementById("qgBar").style.width = pct + "%";
+  document.getElementById("qgPct").textContent = pct + "%";
+  const body = document.getElementById("qgBody");
+  body.innerHTML = "";
+  const fb = document.getElementById("qgFb");
+  fb.className = "qg-feedback"; fb.innerHTML = "";
+  document.getElementById("qgNext").disabled = true;
+
+  if(it.type==="mc"){
+    const wrap = document.createElement("div");
+    wrap.className = "qg-opts";
+    const letters = ["가","나","다","라","마"];
+    it.opts.forEach((opt,k)=>{
+      const b = document.createElement("button");
+      b.className = "qg-opt"; b.type="button";
+      b.innerHTML = `<span class="k">${letters[k]||(k+1)}</span><span>${opt}</span>`;
+      b.addEventListener("click",()=>qgPickMC(k,b));
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+  } else if(it.type==="num"){
+    const wrap = document.createElement("div");
+    wrap.className = "qg-num-input";
+    wrap.innerHTML = `<input type="number" id="qgNumInp" inputmode="decimal" placeholder="정답(숫자, 단위 °)을 입력"><button class="qg-btn primary" id="qgNumSubmit">제출</button>`;
+    body.appendChild(wrap);
+    document.getElementById("qgNumSubmit").addEventListener("click",qgSubmitNum);
+    document.getElementById("qgNumInp").addEventListener("keydown",e=>{
+      if(e.key==="Enter"){e.preventDefault();qgSubmitNum();}
+    });
+  }
+  qgStartTimer();
+}
+function qgPickMC(k, btn){
+  if(qgState.answered) return;
+  qgState.answered = true; qgClearTimer();
+  const it = qgState.list[qgState.idx];
+  const opts = document.querySelectorAll("#qgBody .qg-opt");
+  opts.forEach((x,j)=>{x.classList.add("disabled"); if(j===it.ans) x.classList.add("correct");});
+  const ok = (k===it.ans);
+  if(!ok) btn.classList.add("wrong");
+  const fb = document.getElementById("qgFb");
+  if(ok){
+    qgState.score++;
+    document.getElementById("qgScore").textContent = qgState.score;
+    fb.className = "qg-feedback good show";
+    fb.innerHTML = "✅ <b>정답!</b> "+it.exp;
+  } else {
+    fb.className = "qg-feedback bad show";
+    fb.innerHTML = "❌ <b>오답.</b> 정답: <u>"+it.opts[it.ans]+"</u> · "+it.exp;
+  }
+  qgState.results.push({q:it.title, ok:ok, picked:it.opts[k], ans:it.opts[it.ans], exp:it.exp});
+  document.getElementById("qgNext").disabled = false;
+}
+function qgSubmitNum(){
+  if(qgState.answered) return;
+  const it = qgState.list[qgState.idx];
+  const inp = document.getElementById("qgNumInp");
+  const v = parseFloat(inp.value);
+  const fb = document.getElementById("qgFb");
+  if(isNaN(v)){fb.className="qg-feedback bad show"; fb.innerHTML="숫자를 입력해 주세요."; return;}
+  qgState.answered = true; qgClearTimer();
+  const ok = Math.abs(v - it.ans) <= (it.tol||1);
+  inp.disabled = true; document.getElementById("qgNumSubmit").disabled = true;
+  if(ok){
+    qgState.score++;
+    document.getElementById("qgScore").textContent = qgState.score;
+    fb.className="qg-feedback good show";
+    fb.innerHTML = "✅ <b>정답!</b> "+it.exp;
+  } else {
+    fb.className="qg-feedback bad show";
+    fb.innerHTML = "❌ <b>오답.</b> 정답: <u>"+it.ans+"°</u> (입력: "+v+"°) · "+it.exp;
+  }
+  qgState.results.push({q:it.title, ok:ok, picked:v+"°", ans:it.ans+"°", exp:it.exp});
+  document.getElementById("qgNext").disabled = false;
+}
+function qgTimeout(){
+  qgState.answered = true;
+  const it = qgState.list[qgState.idx];
+  const fb = document.getElementById("qgFb");
+  fb.className = "qg-feedback bad show";
+  fb.innerHTML = "⏱ <b>시간 초과!</b> 정답: <u>"+ (it.type==="mc"?it.opts[it.ans]:it.ans+"°") +"</u> · "+it.exp;
+  // disable inputs
+  document.querySelectorAll("#qgBody .qg-opt").forEach(x=>x.classList.add("disabled"));
+  const inp = document.getElementById("qgNumInp"); if(inp) inp.disabled=true;
+  const sb = document.getElementById("qgNumSubmit"); if(sb) sb.disabled=true;
+  qgState.results.push({q:it.title, ok:false, picked:"시간 초과", ans:(it.type==="mc"?it.opts[it.ans]:it.ans+"°"), exp:it.exp});
+  document.getElementById("qgNext").disabled = false;
+}
+function qgNext(){
+  if(!qgState.answered) return;
+  qgState.idx++;
+  if(qgState.idx >= QG_LEN){
+    qgFinish();
+  } else {
+    qgRender();
+  }
+}
+function qgSkip(){
+  if(qgState.answered) return;
+  qgClearTimer();
+  const it = qgState.list[qgState.idx];
+  qgState.results.push({q:it.title, ok:false, picked:"건너뜀", ans:(it.type==="mc"?it.opts[it.ans]:it.ans+"°"), exp:it.exp});
+  qgState.idx++;
+  if(qgState.idx >= QG_LEN) qgFinish(); else qgRender();
+}
+function qgFinish(){
+  qgClearTimer();
+  qgState.elapsed = Math.round((Date.now() - qgState.startTs)/1000);
+  document.getElementById("qgPlayWrap").style.display = "none";
+  const w = document.getElementById("qgResultWrap"); w.style.display = "";
+  const pct = Math.round(qgState.score / QG_LEN * 100);
+  let msg = "조금 더 연습해 볼까요?";
+  if(pct>=90) msg = "최고예요! 빛의 반사·굴절을 완벽히 이해했어요.";
+  else if(pct>=70) msg = "잘 했어요! 핵심 내용을 잘 알고 있어요.";
+  else if(pct>=50) msg = "괜찮아요. 이론 학습을 한 번 더 보면 좋아요.";
+  document.getElementById("qgGrade").textContent = qgState.score + " / " + QG_LEN + " (" + pct + "점)";
+  document.getElementById("qgGradeMsg").textContent = msg;
+  document.getElementById("qgRsCorrect").textContent = qgState.score;
+  document.getElementById("qgRsTotal").textContent = QG_LEN;
+  document.getElementById("qgRsTime").textContent = qgState.elapsed + "초";
+  const list = document.getElementById("qgReviewList"); list.innerHTML="";
+  qgState.results.forEach((r,i)=>{
+    const d = document.createElement("div"); d.className="qg-review-item";
+    d.innerHTML = `<span class="res ${r.ok?'ok':'no'}">${r.ok?'✓ 정답':'✗ 오답'}</span>
+      <b>Q${i+1}.</b> ${r.q}<br>
+      <span style="color:var(--muted)">내 답: <b>${r.picked}</b> / 정답: <b>${r.ans}</b></span>`;
+    list.appendChild(d);
+  });
+  // capture tag update
+  try{
+    document.getElementById("capTagScore").textContent = qgState.score + "/" + QG_LEN + " (" + pct + "점)";
+  }catch(e){}
+}
+document.getElementById("qgNext").addEventListener("click", qgNext);
+document.getElementById("qgSkip").addEventListener("click", qgSkip);
+document.getElementById("qgRestart").addEventListener("click", qgInit);
+document.getElementById("qgGotoCapture").addEventListener("click", ()=>switchPage("capture"));
+document.getElementById("qgCaptureBtn").addEventListener("click", ()=>{
+  captureNode(document.getElementById("qgResultWrap"), "송쌤과학_퀴즈결과");
+});
+
+/* ---------- 결과 캡처 (Result Capture) ---------- */
+function getStudentInfo(){
+  const id = (document.getElementById("capId").value||"").trim();
+  const nm = (document.getElementById("capName").value||"").trim();
+  const desc = (document.getElementById("capDesc").value||"").trim();
+  return {id, nm, desc};
+}
+function refreshCapTags(){
+  const {id,nm} = getStudentInfo();
+  document.getElementById("capTagId").textContent = id||"-";
+  document.getElementById("capTagName").textContent = nm||"-";
+}
+
+/* ---------- 학생 정보 전역 동기화 (학번 바 ↔ 캡처 입력) ---------- */
+function updateStuStatus(){
+  const id = (document.getElementById("stuId").value||"").trim();
+  const nm = (document.getElementById("stuName").value||"").trim();
+  const el = document.getElementById("stuStatus");
+  if(id && nm){ el.textContent = "✓ "+id+" "+nm; el.classList.add("ok"); }
+  else if(id || nm){ el.textContent = "입력 중…"; el.classList.remove("ok"); }
+  else { el.textContent = "미입력"; el.classList.remove("ok"); }
+}
+function syncStudent(fromId, toId){
+  const src = document.getElementById(fromId);
+  const dst = document.getElementById(toId);
+  if(dst.value !== src.value) dst.value = src.value;
+}
+function bindStudentSync(){
+  const pairs = [["stuId","capId"],["stuName","capName"]];
+  pairs.forEach(([a,b])=>{
+    const ea = document.getElementById(a), eb = document.getElementById(b);
+    ea.addEventListener("input", ()=>{ syncStudent(a,b); refreshCapTags(); updateStuStatus(); });
+    eb.addEventListener("input", ()=>{ syncStudent(b,a); refreshCapTags(); updateStuStatus(); });
+  });
+  updateStuStatus();
+}
+bindStudentSync();
+
+["capId","capName"].forEach(k=>{
+  document.getElementById(k).addEventListener("input", refreshCapTags);
+});
+
+/* compose capture target: build a temporary container with stamp + selected snapshots */
+function buildCaptureTarget(){
+  const {id, nm, desc} = getStudentInfo();
+  const optExp = document.getElementById("capOptExp").checked;
+  const optQuiz = document.getElementById("capOptQuiz").checked;
+  const optTable = document.getElementById("capOptTable").checked;
+  const host = document.createElement("div");
+  host.style.cssText = "position:fixed; left:-99999px; top:0; width:1000px; padding:20px; background:#fff; color:#1f2b38; font-family:'Pretendard',sans-serif;";
+  // header stamp
+  const stamp = document.createElement("div");
+  stamp.className = "capture-stamp";
+  const today = new Date(); const ts = today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
+  stamp.innerHTML = `<div class="left">송쌤과학 · 빛의 반사와 굴절 가상실험실 결과</div>
+    <div class="right">학번 <b>${id||"-"}</b> · 이름 <b>${nm||"-"}</b> · ${ts}</div>`;
+  host.appendChild(stamp);
+
+  // description
+  if(desc){
+    const d = document.createElement("div");
+    d.style.cssText = "background:#f7fafd; border:1px solid #e3e9f0; border-radius:10px; padding:12px 14px; margin-bottom:14px; font-size:14px; line-height:1.6; color:#1f2b38;";
+    d.innerHTML = `<b style="color:#0B4F84">📝 결과 설명</b><br>${desc.replace(/</g,"&lt;").replace(/\n/g,"<br>")}`;
+    host.appendChild(d);
+  }
+
+  return new Promise(async (resolve)=>{
+    // append snapshots via html2canvas of selected sections
+    async function snapshot(el, title){
+      if(!el) return;
+      try{
+        const cv = await html2canvas(el, {backgroundColor:"#ffffff", scale:1.2, useCORS:true, logging:false});
+        const wrap = document.createElement("div");
+        wrap.style.cssText = "margin-bottom:14px; border:1px solid #e3e9f0; border-radius:10px; overflow:hidden;";
+        const h = document.createElement("div");
+        h.style.cssText = "background:#e7f1fb; color:#0B4F84; font-weight:700; padding:8px 12px; font-size:13px;";
+        h.textContent = title;
+        const img = document.createElement("img");
+        img.src = cv.toDataURL("image/png");
+        img.style.cssText = "width:100%; display:block;";
+        wrap.appendChild(h); wrap.appendChild(img);
+        host.appendChild(wrap);
+      }catch(e){console.warn("snapshot fail", e);}
+    }
+
+    // experiment scene: take the canvas-shell from experiment page (always visible offscreen if page hidden? Need to ensure visible)
+    if(optExp){
+      const prev = document.querySelector(".page.page-on")?.dataset.page;
+      // temporarily show experiment to capture
+      switchPage("experiment");
+      await new Promise(r=>setTimeout(r,250));
+      try{resize();}catch(e){}
+      await new Promise(r=>setTimeout(r,200));
+      const target = document.querySelector("#page-experiment .canvas-shell")?.parentElement?.parentElement;
+      const expCard = document.querySelector("#page-experiment .card:nth-of-type(2)"); // stage card
+      // best: find card containing the canvas
+      let stageCard = null;
+      document.querySelectorAll("#page-experiment .card").forEach(c=>{if(c.querySelector("#cv")) stageCard=c;});
+      await snapshot(stageCard || document.getElementById("cv").parentElement, "실험 장면 (레이저 · 각도기 · 빛 경로)");
+      // restore
+      switchPage(prev||"capture");
+      await new Promise(r=>setTimeout(r,100));
+    }
+    if(optQuiz){
+      const resultEl = document.getElementById("qgResultWrap");
+      if(resultEl && resultEl.style.display !== "none"){
+        await snapshot(resultEl, "활동 퀴즈 게임 결과");
+      } else {
+        // quiz not finished — note
+        const note = document.createElement("div");
+        note.style.cssText = "background:#fff6f5; border:1px solid #ffd9d5; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:13.5px; color:#a04036;";
+        note.textContent = "ⓘ 퀴즈를 아직 완료하지 않아 결과가 없습니다. '활동 퀴즈 게임' 탭에서 퀴즈를 마친 뒤 다시 캡처해 주세요.";
+        host.appendChild(note);
+      }
+    }
+    if(optTable){
+      const tableCard = document.querySelector("#page-experiment .card:has(#tbody)") || document.querySelector("#page-experiment table")?.closest(".card");
+      if(tableCard) await snapshot(tableCard, "측정 기록 표");
+    }
+    document.body.appendChild(host);
+    resolve(host);
+  });
+}
+
+async function captureNode(node, prefix){
+  try{
+    const cv = await html2canvas(node, {backgroundColor:"#ffffff", scale:1.5, useCORS:true, logging:false});
+    const link = document.createElement("a");
+    const stamp = new Date().toISOString().replace(/[:.]/g,"-").slice(0,19);
+    link.download = (prefix||"송쌤과학_캡처") + "_" + stamp + ".png";
+    link.href = cv.toDataURL("image/png");
+    link.click();
+  }catch(e){
+    alert("캡처 중 오류가 발생했습니다: "+e.message);
+  }
+}
+
+async function doCapture(previewOnly){
+  const {id, nm, desc} = getStudentInfo();
+  if(!id || !nm){
+    alert("학번과 이름을 모두 입력해 주세요.");
+    return;
+  }
+  if(!desc){
+    if(!confirm("결과 설명이 비어 있습니다. 그래도 진행할까요?")) return;
+  }
+  const optExp = document.getElementById("capOptExp").checked;
+  const optQuiz = document.getElementById("capOptQuiz").checked;
+  const optTable = document.getElementById("capOptTable").checked;
+  if(!optExp && !optQuiz && !optTable){
+    alert("캡처할 항목을 1개 이상 선택해 주세요.");
+    return;
+  }
+  document.getElementById("capPreview").innerHTML = "<span style='color:var(--blue)'>⏳ 화면을 합성하는 중입니다…</span>";
+
+  const host = await buildCaptureTarget();
+  try{
+    const cv = await html2canvas(host, {backgroundColor:"#ffffff", scale:1.4, useCORS:true, logging:false});
+    const dataUrl = cv.toDataURL("image/png");
+    if(previewOnly){
+      document.getElementById("capPreview").innerHTML = "";
+      const img = document.createElement("img");
+      img.src = dataUrl;
+      document.getElementById("capPreview").appendChild(img);
+    } else {
+      const link = document.createElement("a");
+      const stamp = new Date().toISOString().replace(/[:.]/g,"-").slice(0,19);
+      const safe = (s)=>s.replace(/[^\w가-힣]+/g,"_");
+      link.download = "송쌤과학_"+safe(id)+"_"+safe(nm)+"_"+stamp+".png";
+      link.href = dataUrl;
+      link.click();
+      // also show preview
+      document.getElementById("capPreview").innerHTML = "<div style='color:var(--ok); font-weight:700; margin-bottom:8px'>✅ 저장 완료! 아래는 캡처된 이미지 미리보기입니다.</div>";
+      const img = document.createElement("img");
+      img.src = dataUrl;
+      document.getElementById("capPreview").appendChild(img);
+    }
+  }catch(e){
+    document.getElementById("capPreview").innerHTML = "<span style='color:var(--bad)'>❌ 캡처 중 오류: "+e.message+"</span>";
+  } finally {
+    try{host.remove();}catch(e){}
+  }
+}
+document.getElementById("capDoBtn").addEventListener("click", ()=>doCapture(false));
+document.getElementById("capPreviewBtn").addEventListener("click", ()=>doCapture(true));
+
+/* ---------- init quiz game on first load ---------- */
+qgInit();
+refreshCapTags();
+
 })();
 </script>
 </body>
