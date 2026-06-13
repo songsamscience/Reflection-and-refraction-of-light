@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>빛의 반사와 굴절 가상실험실 · 송쌤과학</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{
   --blue:#0F6FB8; --blue-d:#0B4F84; --blue-l:#e7f1fb;
@@ -91,7 +91,7 @@ header.brand::after{content:"";position:absolute;right:-40px;top:-40px;width:220
   display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .card h2 .hbtn:hover{border-color:var(--blue);background:var(--card-sel)}
 .card h2 .hbtn:active{transform:translateY(1px)}
-  text-transform:none;margin:2px 0 9px;display:flex;align-items:center;gap:7px}
+.section-title{font-size:12.5px;font-weight:800;color:var(--blue-d);text-transform:none;margin:2px 0 9px;display:flex;align-items:center;gap:7px}
 .section-title::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--pink-d)}
 .block+.block{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)}
 
@@ -721,6 +721,56 @@ body.mode-refract .reflect-only{display:none}
 
 /* prevent body scroll lock issues on mobile */
 html, body{overflow-x:hidden}
+
+
+/* ---------- v5 interface refinement: stable measurement action + mobile ---------- */
+.experiment-grid{grid-template-columns:minmax(300px,350px) minmax(0,1fr);gap:18px;align-items:start}
+.experiment-grid>.card:first-child{position:sticky;top:76px;z-index:10}
+.stage-card{min-width:0}
+.stage-card .body{padding:14px;display:flex;flex-direction:column;gap:9px}
+.stage-card h2{position:relative}
+.canvas-shell{box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.measure-note{margin-top:10px;border:1px dashed var(--line);border-radius:12px;background:var(--card-sub);color:var(--muted);font-size:12.5px;line-height:1.5;padding:9px 11px}
+.measure-dock{position:sticky;bottom:12px;z-index:35;margin-top:9px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--card) 94%,transparent);box-shadow:0 12px 28px rgba(15,111,184,.16);backdrop-filter:blur(10px) saturate(1.15)}
+.measure-dock.flash{animation:measureFlash .42s ease}
+@keyframes measureFlash{0%{transform:translateY(0);box-shadow:0 0 0 0 rgba(26,162,96,.38),0 12px 28px rgba(15,111,184,.16)}45%{transform:translateY(-2px);box-shadow:0 0 0 6px rgba(26,162,96,.20),0 16px 34px rgba(15,111,184,.22)}100%{transform:translateY(0);box-shadow:0 12px 28px rgba(15,111,184,.16)}}
+.measure-dock .dock-copy{min-width:0}
+.measure-dock .dock-title{font-weight:900;font-size:14px;color:var(--blue-d);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.measure-dock .dock-sub{margin-top:4px;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.35;display:flex;gap:8px;flex-wrap:wrap}
+.measure-dock .dock-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:999px;background:var(--blue-l);color:var(--blue-d);font-variant-numeric:tabular-nums}
+.measure-dock .dock-pill.out{background:var(--pink-l);color:var(--pink-d)}
+.measure-dock .dock-count{background:var(--card);border:1px solid var(--line);color:var(--muted)}
+.measure-dock .btn{width:auto;min-width:168px;min-height:48px;white-space:nowrap;box-shadow:0 8px 20px rgba(15,111,184,.26)}
+.measure-dock .btn:focus-visible,.step:focus-visible,.chip:focus-visible,.media:focus-visible,.pagenav .pbtn:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 35%,transparent);outline-offset:2px}
+@supports (padding: env(safe-area-inset-bottom)){.measure-dock{bottom:calc(10px + env(safe-area-inset-bottom))}}
+@media(max-width:880px){
+  .experiment-grid{grid-template-columns:1fr;gap:12px}
+  .experiment-grid>.card:first-child{position:static;top:auto}
+  .stage-card{order:-1}
+  .stage-card .body{padding:10px}
+  .measure-dock{grid-template-columns:1fr;gap:10px;padding:11px;bottom:10px}
+  .measure-dock .btn{width:100%;min-width:0;min-height:50px;font-size:15px}
+  .measure-dock .dock-title{font-size:13.5px}
+  .measure-dock .dock-sub{font-size:12.3px}
+  .media-grid{grid-template-columns:1fr 1fr}
+  .read .box .num{font-size:23px}
+}
+@media(max-width:560px){
+  .mode-banner{align-items:flex-start}
+  .legend{font-size:11.5px;gap:9px;padding-bottom:6px}
+  .canvas-shell{border-radius:12px}
+  .hint{font-size:11.5px;line-height:1.45;align-items:flex-start}
+  .measure-dock{border-radius:14px;margin-top:8px;background:color-mix(in srgb,var(--card) 96%,transparent)}
+  .measure-dock .dock-sub{gap:5px}
+  .measure-dock .dock-pill{padding:3px 7px}
+  .side-toggle{display:grid;grid-template-columns:1fr;gap:6px}
+  .side-toggle button{min-height:42px;font-size:13px}
+  .chips{display:grid;grid-template-columns:repeat(3,1fr)}
+  .chip{min-width:0;padding:10px 8px;font-size:13px}
+  .toolbar{justify-content:stretch;padding:10px 12px 0}
+  .toolbar .btn{flex:1 1 100%}
+}
+
 </style>
 </head>
 <body class="mode-reflect">
@@ -953,7 +1003,7 @@ html, body{overflow-x:hidden}
     </div>
   </div>
 
-  <div class="grid">
+  <div class="grid experiment-grid">
     <!-- CONTROLS -->
     <div class="card">
       <h2>🎛️ 실험 조절</h2>
@@ -1007,7 +1057,7 @@ html, body{overflow-x:hidden}
             <div class="box out"><div class="lab" id="outLab">반사각</div><div class="num"><span id="rOut">30</span>°</div></div>
           </div>
           <div class="law" id="lawBox"></div>
-          <button class="btn primary" id="recordBtn" style="margin-top:13px">📝 측정값 기록하기</button>
+          <div class="measure-note">📌 측정값 측정하기 버튼은 실험 무대 바로 아래에 고정 배치했습니다. 캔버스를 보면서 바로 기록하세요.</div>
         </div>
 
       </div>
@@ -1022,6 +1072,17 @@ html, body{overflow-x:hidden}
           <canvas id="cv"></canvas>
         </div>
         <div class="hint">🖱️ 레이저(또는 입사광선)를 드래그해 입사각을 바꾸고, 각도기 눈금으로 각을 읽어 보세요.</div>
+        <div class="measure-dock" id="measureDock" aria-live="polite">
+          <div class="dock-copy">
+            <div class="dock-title">📌 현재 측정값 바로 측정</div>
+            <div class="dock-sub">
+              <span class="dock-pill">입사각 <b><span id="dockInc">30</span>°</b></span>
+              <span class="dock-pill out"><span id="dockOutLab">반사각</span> <b><span id="dockOut">30</span>°</b></span>
+              <span class="dock-pill dock-count">저장 <b><span id="recordCountBadge">0</span></b>개</span>
+            </div>
+          </div>
+          <button class="btn primary" id="recordBtn" data-record-btn>📝 측정하기</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1281,14 +1342,16 @@ document.getElementById("themeBtn").addEventListener("click",()=>{
 const cv=document.getElementById("cv"), ctx=cv.getContext("2d");
 let W=0,H=0,DPR=1;
 function resize(){
-  const shell=cv.parentElement, cssW=shell.clientWidth;
-  const cssH=Math.round(clamp(cssW*0.66,330,560));
+  const shell=cv.parentElement, cssW=Math.max(280,shell.clientWidth);
+  const small=cssW<520;
+  const cssH=Math.round(clamp(cssW*(small?0.72:0.66),small?260:330,small?430:560));
   DPR=Math.min(window.devicePixelRatio||1,2);
-  cv.width=cssW*DPR; cv.height=cssH*DPR; cv.style.height=cssH+"px";
+  cv.width=Math.round(cssW*DPR); cv.height=Math.round(cssH*DPR); cv.style.height=cssH+"px";
   W=cssW; H=cssH; ctx.setTransform(DPR,0,0,DPR,0,0);
   draw();
 }
-window.addEventListener("resize",resize);
+let resizeRAF=0;
+window.addEventListener("resize",()=>{cancelAnimationFrame(resizeRAF);resizeRAF=requestAnimationFrame(resize);},{passive:true});
 
 /* ---------- geometry helpers ---------- */
 function vec(a){return {x:Math.cos(a),y:Math.sin(a)};}
@@ -1616,13 +1679,11 @@ function draw(){
 
 /* ---------- readouts / law ---------- */
 function updateReadouts(){
-  document.getElementById("angVal").textContent=S.incident;
-  document.getElementById("rInc").textContent=S.incident;
   const out=(S.mode==="reflect")?S.incident:S._out;
-  document.getElementById("rOut").textContent=out;
-  document.getElementById("outLab").textContent=(S.mode==="reflect")?"반사각":"굴절각";
+  const outLabel=(S.mode==="reflect")?"반사각":"굴절각";
+  [["angVal",S.incident],["rInc",S.incident],["rOut",out],["outLab",outLabel],["dockInc",S.incident],["dockOut",out],["dockOutLab",outLabel]].forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent=val;});
   const sl=document.getElementById("angSlider");
-  sl.style.setProperty("--p",(S.incident/85*100)+"%");
+  if(sl)sl.style.setProperty("--p",(S.incident/85*100)+"%");
   const law=document.getElementById("lawBox");
   if(S.mode==="reflect"){
     law.innerHTML=`<b>반사 법칙</b> · 입사각 = 반사각<div class="calc">${S.incident}° = ${S.incident}° ✓ (법선 기준)</div>`;
@@ -1740,6 +1801,8 @@ function record(){
   records.push({mode:S.mode,medium:(S.mode==="reflect"?"-":MEDIA[S.medium].name),
     color:S.color,inc:S.incident,out:out});
   renderTable();
+  const dock=document.getElementById("measureDock");
+  if(dock){dock.classList.remove("flash");void dock.offsetWidth;dock.classList.add("flash");}
 }
 function relation(r){
   if(r.mode==="reflect")return "입사각 = 반사각";
@@ -1749,6 +1812,8 @@ function relation(r){
 }
 function renderTable(){
   const tb=document.getElementById("tbody");tb.innerHTML="";
+  const badge=document.getElementById("recordCountBadge");
+  if(badge)badge.textContent=records.length;
   document.getElementById("emptyRow").style.display=records.length?"none":"block";
   records.forEach((r,i)=>{
     const tr=document.createElement("tr");
@@ -1765,7 +1830,7 @@ function renderTable(){
 document.getElementById("tbody").addEventListener("click",e=>{
   const b=e.target.closest(".del");if(!b)return;records.splice(+b.dataset.i,1);renderTable();
 });
-document.getElementById("recordBtn").addEventListener("click",record);
+document.querySelectorAll("[data-record-btn], #recordBtn").forEach(btn=>btn.addEventListener("click",record));
 document.getElementById("clearBtn").addEventListener("click",()=>{if(records.length&&confirm("기록을 모두 삭제할까요?")){records.length=0;renderTable();}});
 document.getElementById("csvBtn").addEventListener("click",()=>{
   if(!records.length){alert("기록이 없습니다.");return;}
